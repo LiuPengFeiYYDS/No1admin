@@ -3,7 +3,7 @@
     <el-form ref="LoginForm" :model="form" :rules="formInput">
       <div class="title-container">
         <h3 class="title">用户登录</h3>
-        <span class="icon">icon</span>
+        <svg-icon className="svg-language" icon="language"></svg-icon>
       </div>
       <el-form-item prop="username">
         <el-icon><User /></el-icon>
@@ -11,22 +11,12 @@
       </el-form-item>
       <el-form-item prop="password">
         <el-icon><Lock /></el-icon>
-        <el-input :type="inputType" v-model="form.password">
-          <template #suffix>
-            <el-icon
-              v-if="inputType === 'password'"
-              @click="handllePassWordStatus"
-              class="el-input__icon"
-              ><Hide
-            /></el-icon>
-            <el-icon
-              v-else
-              @click="handllePassWordStatus"
-              class="el-input__icon"
-              ><View
-            /></el-icon>
-          </template>
-        </el-input>
+        <el-input :type="inputType" v-model="form.password"></el-input>
+        <span class="svg-pwd" @click="handllePassWordStatus">
+          <el-icon>
+            <svg-icon :icon="passwordIconStatus"></svg-icon>
+          </el-icon>
+        </span>
       </el-form-item>
 
       <el-button class="login-button" type="primary" @click="add(LoginForm)"
@@ -37,13 +27,13 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router'
 import { login } from '../../api/login'
-import { reactive, ref } from 'vue'
+import { reactive, ref, computed } from 'vue'
 import { validatePassword } from './rule'
-import { User, Lock, Hide, View } from '@element-plus/icons-vue'
-
+import { User, Lock } from '@element-plus/icons-vue'
 const inputType = ref('password')
-
+const router = useRouter()
 const form = reactive({
   username: '',
   password: ''
@@ -67,6 +57,7 @@ const formInput = reactive({
 })
 const add = async (formName) => {
   login(form)
+  router.push('/profile')
   if (!formName) return
   await formName.validate((valid) => {
     if (valid) {
@@ -77,6 +68,9 @@ const add = async (formName) => {
 const handllePassWordStatus = () => {
   inputType.value = inputType.value === 'password' ? 'text' : 'password'
 }
+const passwordIconStatus = computed(() => {
+  return inputType.value === 'password' ? 'eye' : 'eye-open'
+})
 </script>
 
 <style scoped lang="scss">
@@ -149,6 +143,16 @@ $cursor: #fff;
     right: 0;
     color: $light_gray;
     font-size: 22px;
+  }
+  ::v-deep .svg-language {
+    position: absolute;
+    top: 4px;
+    right: 0;
+    background-color: #fff;
+    font-size: 22px;
+    padding: 4px;
+    border-radius: 4px;
+    cursor: pointer;
   }
 }
 .login-button {
