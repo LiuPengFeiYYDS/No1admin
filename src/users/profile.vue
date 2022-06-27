@@ -1,7 +1,17 @@
 <template>
   <div class="profile">
     <el-row>
-      <el-col :span="4">
+      <el-col :span="4" class="heiglt">
+        <div class="headers">
+          <span>
+            <img
+              src="https://m.imooc.com/static/wap/static/common/img/logo-small@2x.png"
+              style="object-fit: cover"
+            />
+          </span>
+
+          <h1>imooc-admin</h1>
+        </div>
         <el-menu
           active-text-color="#ffd04b"
           background-color="#545c64"
@@ -32,6 +42,29 @@
 
 <script setup></script>
 
-<style lang="scss">
-
+<style scoped lang="scss">
+.headers {
+  height: var(--59cf8ee8) px;
+  padding: 10px 0 22px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img {
+    width: 44px;
+    display: block;
+    height: 100%;
+  }
+  h1 {
+    margin-left: 10px;
+    color: #fff;
+    font-weight: 600;
+    line-height: 50px;
+    font-size: 16px;
+    white-space: nowrap;
+  }
+}
+.heiglt {
+  height: 100vh;
+  background-color: #545c64;
+}
 </style>

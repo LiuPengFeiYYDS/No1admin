@@ -19,7 +19,7 @@
         </span>
       </el-form-item>
 
-      <el-button class="login-button" type="primary" @click="add(LoginForm)"
+      <el-button class="login-button" type="primary" @click="add"
         >登陆</el-button
       >
     </el-form>
@@ -27,16 +27,22 @@
 </template>
 
 <script setup>
+import util from '../../utils/usil'
 import { useRouter } from 'vue-router'
-import { login } from '../../api/login'
 import { reactive, ref, computed } from 'vue'
 import { validatePassword } from './rule'
+import { useStore } from 'vuex'
 import { User, Lock } from '@element-plus/icons-vue'
+import md5 from 'md5'
+
 const inputType = ref('password')
 const router = useRouter()
+const LoginForm = ref()
+const store = useStore()
+
 const form = reactive({
-  username: '',
-  password: ''
+  username: 'super-admin',
+  password: '123456'
 })
 
 const formInput = reactive({
@@ -55,13 +61,16 @@ const formInput = reactive({
     }
   ]
 })
-const add = async (formName) => {
-  login(form)
-  router.push('/profile')
-  if (!formName) return
-  await formName.validate((valid) => {
+
+const add = async () => {
+  if (!LoginForm.value) return
+  await LoginForm.value.validate(async (valid) => {
     if (valid) {
       alert('登录')
+      router.push('/profile')
+      const newLoginForm = util.deepCopy(form)
+      newLoginForm.password = md5(newLoginForm.password)
+      store.dispatch('user/login', newLoginForm)
     }
   })
 }
