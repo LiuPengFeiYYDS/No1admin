@@ -1,6 +1,5 @@
 <template>
   <div class="profile">
-    <!-- 再来一遍 -->
     <el-container>
       <el-aside :width="isCollapse ? '64px' : '234px'" class="aside">
         <div class="headers">
@@ -20,31 +19,22 @@
           class="el-menu-vertical-demo"
           default-active="2"
           text-color="#fff"
-          @open="handleOpen"
-          @close="handleClose"
         >
           <el-sub-menu index="1">
-            <template #title>
+            <!-- <template #title>
               <el-icon><location /></el-icon>
               <span>Navigator One</span>
             </template>
             <el-sub-menu index="1-4">
               <template #title>item four</template>
               <el-menu-item index="1-4-1">item one</el-menu-item>
-            </el-sub-menu>
+            </el-sub-menu> -->
+
+            <Item v-for="(item, i) in array" :key="i" :item="item" />
           </el-sub-menu>
         </el-menu>
       </el-aside>
       <el-main>
-        <div class="NavBar">
-          <!-- 内容上面的表头 -->
-          <el-icon size="28px" v-if="!isCollapse" @click="isCollapse = true"
-            ><Fold
-          /></el-icon>
-           <el-icon size="28px" v-else @click="isCollapse = false"
-            ><Expand
-          /></el-icon>
-        </div>
         <!-- 面包屑 -->
         11111111
         <router-view
@@ -54,12 +44,95 @@
 </template>
 
 <script setup>
-import { Fold, Expand } from '@element-plus/icons-vue'
-import { ref } from 'vue'
-const isCollapse = ref(false)
+import { reactive } from 'vue'
+import Item from './Item'
+const data = [
+  {
+    id: 1,
+    name: 'IT互联网',
+    children: [
+      {
+        id: 11,
+        name: '前端',
+        children: [
+          {
+            id: 111,
+            name: 'html',
+            children: [
+              {
+                id: 11113,
+                name: 'p'
+              },
+              {
+                id: 11114,
+                name: 'h1'
+              },
+              {
+                id: 11115,
+                name: 'ul'
+              }
+            ]
+          },
+          {
+            id: 112,
+            name: 'css'
+          },
+          {
+            id: 113,
+            name: 'javascript'
+          }
+        ]
+      },
+      {
+        id: 12,
+        name: '后端'
+      },
+      {
+        id: 13,
+        name: '运维'
+      }
+    ]
+  },
+  {
+    id: 2,
+    name: '设计创作',
+    children: [
+      {
+        id: 22,
+        name: '平面设计'
+      },
+      {
+        id: 23,
+        name: '网页设计'
+      }
+    ]
+  },
+  {
+    id: 3,
+    name: '升学考研',
+    chidlren: []
+  },
+  {
+    id: 1,
+    name: '职企考证',
+    chidlren: []
+  }
+]
+
+const array = reactive(data)
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
+li.one {
+  color: #fff;
+}
+li.two {
+  color: yellow;
+}
+li.three {
+  color: #f60;
+}
+
 .headers {
   height: var(--59cf8ee8) px;
   padding: 10px 0 22px 0;
@@ -89,16 +162,5 @@ const isCollapse = ref(false)
   -webkit-transition: width 0.25s;
   -o-transition: width 0.25s;
 }
-.NavBar {
-  width: 100%;
-  height: 80px;
-  background-color: aqua;
-  .el-icon {
-    line-height: 46px;
-    height: 100%;
-    float: left;
-    cursor: pointer;
-    transition: background 0.5s;
-  }
-}
+
 </style>

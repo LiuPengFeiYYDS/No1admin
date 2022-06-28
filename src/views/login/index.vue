@@ -67,14 +67,15 @@ const add = async () => {
   if (!LoginForm.value) return
   await LoginForm.value.validate(async (valid) => {
     if (valid) {
+      const newLoginForm = util.deepCopy(form)
+      newLoginForm.password = md5(newLoginForm.password)
+
+      const response = await store.dispatch('user/login', newLoginForm)
+      if (response.token) router.push('/')
       ElMessage({
         message: '登陆成功',
         type: 'success'
       })
-      router.push('/profile')
-      const newLoginForm = util.deepCopy(form)
-      newLoginForm.password = md5(newLoginForm.password)
-      store.dispatch('user/login', newLoginForm)
     }
   })
 }

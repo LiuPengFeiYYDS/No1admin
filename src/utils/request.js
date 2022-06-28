@@ -2,6 +2,7 @@
 import axios from 'axios'
 import md5 from 'md5'
 import loading from './loading'
+import { ElMessage } from 'element-plus'
 
 // 创建axios实例对象
 const service = axios.create({
@@ -33,16 +34,28 @@ service.interceptors.response.use(
   (response) => {
     // 关闭loading加载
     loading.close()
-    // TODO token过期状态
-    // TODO 全局响应处理
-    return response
+    const { success, message, data } = response.data
+    //   要根据success的成功与否决定下面的操作
+    if (success) {
+      return data
+    } else {
+      // 业务错误
+      _showError(message) // 提示错误消息
+      return Promise.reject(new Error(message))
+    }
   },
   (error) => {
+    _showError(error.message)
     // 关闭loading加载
     loading.close()
     return Promise.reject(error)
   }
 )
+// 响应提示信息
+const _showError = (message) => {
+  const info = message || '发生未知错误'
+  ElMessage.error(info)
+}
 // 获取icode、
 function getTestICode() {
   const now = parseInt(Date.now() / 1000)

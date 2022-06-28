@@ -6,7 +6,7 @@ import request from '../utils/request'
  * @returns
  */
 const login = (data) => {
-  return request({ url: '/sys/login', method: 'post', data: data })
+  return request({ url: '/sys/login', method: 'post', data })
 }
 
 export default {
