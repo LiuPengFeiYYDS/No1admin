@@ -33,6 +33,7 @@ import { reactive, ref, computed } from 'vue'
 import { validatePassword } from './rule'
 import { useStore } from 'vuex'
 import { User, Lock } from '@element-plus/icons-vue'
+import { ElMessage } from 'element-plus'
 import md5 from 'md5'
 
 const inputType = ref('password')
@@ -66,7 +67,10 @@ const add = async () => {
   if (!LoginForm.value) return
   await LoginForm.value.validate(async (valid) => {
     if (valid) {
-      alert('登录')
+      ElMessage({
+        message: '登陆成功',
+        type: 'success'
+      })
       router.push('/profile')
       const newLoginForm = util.deepCopy(form)
       newLoginForm.password = md5(newLoginForm.password)

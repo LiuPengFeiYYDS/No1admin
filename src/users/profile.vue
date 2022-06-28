@@ -1,7 +1,8 @@
 <template>
   <div class="profile">
-    <el-row>
-      <el-col :span="4" class="heiglt">
+    <!-- 再来一遍 -->
+    <el-container>
+      <el-aside :width="isCollapse ? '64px' : '234px'" class="aside">
         <div class="headers">
           <span>
             <img
@@ -10,9 +11,10 @@
             />
           </span>
 
-          <h1>imooc-admin</h1>
+          <h1 v-show="!isCollapse">imooc-admin</h1>
         </div>
         <el-menu
+          :collapse="isCollapse"
           active-text-color="#ffd04b"
           background-color="#545c64"
           class="el-menu-vertical-demo"
@@ -32,15 +34,30 @@
             </el-sub-menu>
           </el-sub-menu>
         </el-menu>
-      </el-col>
-      <el-col :span="20">
-        <router-view />
-      </el-col>
-    </el-row>
+      </el-aside>
+      <el-main>
+        <div class="NavBar">
+          <!-- 内容上面的表头 -->
+          <el-icon size="28px" v-if="!isCollapse" @click="isCollapse = true"
+            ><Fold
+          /></el-icon>
+           <el-icon size="28px" v-else @click="isCollapse = false"
+            ><Expand
+          /></el-icon>
+        </div>
+        <!-- 面包屑 -->
+        11111111
+        <router-view
+      /></el-main>
+    </el-container>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { Fold, Expand } from '@element-plus/icons-vue'
+import { ref } from 'vue'
+const isCollapse = ref(false)
+</script>
 
 <style scoped lang="scss">
 .headers {
@@ -63,8 +80,25 @@
     white-space: nowrap;
   }
 }
-.heiglt {
+.aside {
   height: 100vh;
   background-color: #545c64;
+  transition: width 0.25s;
+  -webkit-transition: width 0.25s;
+  -moz-transition: width 0.25s;
+  -webkit-transition: width 0.25s;
+  -o-transition: width 0.25s;
+}
+.NavBar {
+  width: 100%;
+  height: 80px;
+  background-color: aqua;
+  .el-icon {
+    line-height: 46px;
+    height: 100%;
+    float: left;
+    cursor: pointer;
+    transition: background 0.5s;
+  }
 }
 </style>

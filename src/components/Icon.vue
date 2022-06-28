@@ -1,5 +1,9 @@
 <template>
-  <span class="iconfont" :class="[props.icon]"  :style="{'font-size' : props.size + 'px', 'color' : props.color}"></span>
+  <span
+    class="iconfont"
+    :class="[props.icon]"
+    :style="{ 'font-size': props.size + 'px', color: props.color }"
+  ></span>
 </template>
 
 <script setup>
@@ -19,5 +23,4 @@ const props = defineProps({
     default: '#000'
   }
 })
-
 </script>
