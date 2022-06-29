@@ -33,17 +33,19 @@ import TagsView from '../components/TagsView'
     left: 0;
     top: 0;
     bottom: 0;
+    float: left;
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
 
   .main-container {
+    float: left;
     width: calc(100% - 210px);
     height: 100%;
     margin-left: 210px;
     position: relative;
 
-    .fixed-header {
+    .fiexed-header {
       position: fixed;
       top: 0;
       right: 0;
