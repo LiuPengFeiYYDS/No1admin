@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-
+// 公共路由
 const publicRoutes = [
   {
     path: '/login',
@@ -12,6 +12,7 @@ const publicRoutes = [
     component: () => import('../layout/index.vue')
   }
 ]
+// 私密路由
 
 const router = createRouter({
   history: createWebHashHistory(),
