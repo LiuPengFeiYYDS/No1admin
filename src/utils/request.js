@@ -1,8 +1,17 @@
 // 导入axios
 import axios from 'axios'
+// 引入保护密码md5
 import md5 from 'md5'
+// 引入loading
 import loading from './loading'
+// 引入element消息提示
 import { ElMessage } from 'element-plus'
+// 引入路由的跳转
+import router from '../router'
+// 引入时间戳
+import { isCheckTimeout } from './auth'
+// 引入vuex
+import store from '../store'
 
 // 创建axios实例对象
 const service = axios.create({
@@ -20,6 +29,14 @@ service.interceptors.request.use(
     config.headers.icode = icode
     config.headers.codeType = time
     // TODO 将token 通过请求头发送给后台
+    const token = store.getters.token
+    if (token) config.headers.Authorization = 'Bearer ' + token
+    if (token) {
+      if (isCheckTimeout()) {
+        store.dispatch('user/login')
+        router.push('/login')
+      }
+    }
     return config
   },
   (error) => {
@@ -45,9 +62,19 @@ service.interceptors.response.use(
     }
   },
   (error) => {
+    // 失败时候的加载提示
     _showError(error.message)
     // 关闭loading加载
     loading.close()
+    // token过期的处理
+    if (
+      error.response &&
+      error.response.data &&
+      error.response.data.code === 401
+    ) {
+      store.dispatch('user/login')
+      router.push('/')
+    }
     return Promise.reject(error)
   }
 )
