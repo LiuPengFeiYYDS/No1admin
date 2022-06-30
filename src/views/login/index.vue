@@ -34,6 +34,7 @@ import { validatePassword } from './rule'
 import { useStore } from 'vuex'
 import { User, Lock } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
+import { setTimeStamp } from '../../utils/auth'
 import md5 from 'md5'
 
 const inputType = ref('password')
@@ -71,6 +72,7 @@ const add = async () => {
       newLoginForm.password = md5(newLoginForm.password)
 
       const response = await store.dispatch('user/login', newLoginForm)
+      setTimeStamp()
       if (response.token) router.push('/')
       ElMessage({
         message: '登陆成功',

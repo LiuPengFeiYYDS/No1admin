@@ -81,7 +81,10 @@ const handleLogout = async () => {
 .el-dropdown {
   margin: 5px 10px 0 0;
 }
-// .el-avatar {
-//   background: none;
-// }
+.el-avatar {
+  background: none;
+}
+img {
+  width: 30px;
+}
 </style>

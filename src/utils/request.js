@@ -67,13 +67,9 @@ service.interceptors.response.use(
     // 关闭loading加载
     loading.close()
     // token过期的处理
-    if (
-      error.response &&
-      error.response.data &&
-      error.response.data.code === 401
-    ) {
-      store.dispatch('user/login')
-      router.push('/')
+    if (error.response && error.response.data && error.response.data.code === 401) {
+      store.dispatch('user/lgout')
+      router.push('/login')
     }
     return Promise.reject(error)
   }

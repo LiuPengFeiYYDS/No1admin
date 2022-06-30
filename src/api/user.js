@@ -12,7 +12,7 @@ const login = (data) => {
  * 用户的接口
  */
 const getUserInfo = () => {
-  return request({ url: '/sys/profile', method: 'get' })
+  return request({ url: '/sys/profile', method: 'GET' })
 }
 export default {
   login,
