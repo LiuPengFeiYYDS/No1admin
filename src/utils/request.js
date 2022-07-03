@@ -33,7 +33,7 @@ service.interceptors.request.use(
     if (token) config.headers.Authorization = 'Bearer ' + token
     if (token) {
       if (isCheckTimeout()) {
-        store.dispatch('user/login')
+        store.dispatch('user/logout')
         router.push('/login')
       }
     }

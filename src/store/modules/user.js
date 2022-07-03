@@ -1,11 +1,11 @@
 import UserApi from '../../api/user'
 import { setItem, getItem, removeItem } from '../../utils/storage.js'
-
+import { resetRouter } from '../../utils/removeRouter'
 export default {
   namespaced: true,
   state: () => ({
     token: getItem('token') || '',
-    userInfo: getItem('userInfo') || ''
+    userInfo: {}
   }),
   mutations: {
     setToken(state, token) {
@@ -14,7 +14,6 @@ export default {
     },
     setUserInfo(state, userInfo) {
       state.userInfo = userInfo
-      setItem('userInfo', userInfo)
     }
   },
   actions: {
@@ -39,8 +38,9 @@ export default {
       }
     },
     logout({ commit }) {
+      resetRouter()
       commit('setToken', '')
-      commit('setUserInfo', '')
+      commit('setUserInfo', {})
       removeItem('token')
       removeItem('userInfo')
     }
