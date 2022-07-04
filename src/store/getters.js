@@ -3,7 +3,9 @@ const getters = {
   userInfo: (state) => state.user.userInfo,
   hasUserInfo: (state) => {
     return JSON.stringify(state.user.userInfo) !== '{}'
-  }
+  },
+  tagsview: state => state.tagsview.tagsView,
+  sidebarOpened: state => state.app.sidebarOpened
 }
 
 export default getters

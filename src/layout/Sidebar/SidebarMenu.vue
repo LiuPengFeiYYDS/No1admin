@@ -5,6 +5,7 @@
     :default-active="$route.path"
     text-color="#bfcbd9"
     unique-opened
+    :collapse="!$store.getters.sidebarOpened"
     router
   >
     <sidebar-menu-item
@@ -107,4 +108,8 @@ const menuList = computed(() => {
 })
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.el-menu{
+  border-right: none;
+}
+</style>

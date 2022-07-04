@@ -1,16 +1,12 @@
 <template>
   <div class="navbar">
     <div class="navbra-left">
-      <el-icon><Fold /></el-icon>
+      <Hamburger class="hamburger-container"></Hamburger>
+      <Breadcrumb></Breadcrumb>
     </div>
     <div class="navbra-right">
       <el-dropdown trigger="click" @command="handleCommand">
         <span class="el-dropdown-link">
-          <!-- <img
-            src="https://m.imooc.com/static/wap/static/common/img/logo-small@2x.png"
-            style="object-fit: cover"
-          />
-          <el-icon class="el-icon--right"><arrow-down /> </el-icon> -->
           <el-avatar shape="square" :size="35" :src="avatarUrl" />
         </span>
         <template #dropdown>
@@ -28,10 +24,11 @@
 </template>
 
 <script setup>
-import { Fold } from '@element-plus/icons-vue'
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
+import Breadcrumb from '../components/Breadcrumb.vue'
+import Hamburger from '../components/Hamburger.vue'
 const store = useStore()
 const router = useRouter()
 const avatarUrl = computed(() => {
@@ -68,7 +65,7 @@ const handleLogout = async () => {
   position: relative;
   background: #fff;
   box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
-  padding: 0 20px;
+  padding: 0 20px 0 0;
   line-height: 50px;
 }
 .navbra-left {
@@ -86,5 +83,17 @@ const handleLogout = async () => {
 }
 img {
   width: 30px;
+}
+.hamburger-container {
+  line-height: 46px;
+  height: 100%;
+  float: left;
+  cursor: pointer;
+  // hover 动画
+  transition: background 0.5s;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.1);
+  }
 }
 </style>

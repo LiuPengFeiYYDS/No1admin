@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="sidebar-title">
-      <!-- <span
+      <span
         ><img
           src="https://m.imooc.com/static/wap/static/common/img/logo-small@2x.png"
           style="object-fit: cover"
-      /></span> -->
+      /></span>
 
       <h1>usian-admin</h1>
     </div>

@@ -1,5 +1,8 @@
 <template>
-  <div class="app-wrapper">
+  <div
+    class="app-wrapper"
+    :class="[$store.getters.sidebarOpened ? 'openSidebar' : 'hideSidebar']"
+  >
     <sidebar class="sidebar-container"></sidebar>
     <div class="main-container">
       <div class="fiexed-header">
@@ -51,6 +54,11 @@ import TagsView from '../components/TagsView'
       right: 0;
       z-index: 9;
       width: calc(100% - 210px);
+      transition: width 0.28s;
+    }
+
+    .hideSidebar .fixed-header {
+      width: calc(100% - 54px);
     }
   }
 }
